@@ -11,14 +11,20 @@
             padding: 50px;
             background-color: #f4f4f4;
         }
-        .container {
+        .container, .password-popup {
             display: none;
             background-color: #fff;
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 400px;
         }
-         .dots {
+        .dots {
             display: flex;
             justify-content: space-between;
             margin-bottom: 20px;
@@ -44,20 +50,27 @@
     </style>
 </head>
 <body>
-    <div class="container">
-         <div class="dots">
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
+    <!-- Popup personnalisée pour le mot de passe -->
+    <div class="password-popup">
+        <h2>Entrez le mot que vous avez trouvé avec la liste des indices:</h2>
+        <div class="dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+        <input type="text" id="passwordInput">
+        <button onclick="checkPassword()">Valider</button>
     </div>
+    
+    <div class="container">
         <h1>Bravo!</h1>
         <p>Bravo! Vous avez trouvé le code secret vous permettant de trouver la bague. Elle se trouve dans le stand []. </p>
         <p>Dès que vous l'avez en votre possession, Vous devez la donner à [] pour qu'elle vous offre votre récompense!</p>
@@ -65,17 +78,18 @@
 
     <script>
         var motDePasseCorrect = "CELEBRATION"; // Remplacez "1234" par votre mot de passe
-        var motDePasse;
         
-        do {
-            motDePasse = prompt("Entrez le mot que vous avez trouvé avec la liste des indices:");
-            
+        document.querySelector('.password-popup').style.display = 'block';
+        
+        function checkPassword() {
+            var motDePasse = document.getElementById('passwordInput').value;
             if (motDePasse === motDePasseCorrect) {
+                document.querySelector('.password-popup').style.display = 'none';
                 document.querySelector('.container').style.display = 'block';
-            } else if (motDePasse !== null) { // Vérifie si l'utilisateur n'a pas cliqué sur "Annuler"
+            } else {
                 alert("Mot de passe incorrect! Veuillez réessayer.");
             }
-        } while (motDePasse !== motDePasseCorrect && motDePasse !== null);
+        }
     </script>
 </body>
 </html>
